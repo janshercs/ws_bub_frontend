@@ -9,13 +9,26 @@ export default function Chatbox() {
   const [threads, setThreads] = useState([]);
 
   useEffect(() => {
-    async function fetchThreads() {
-      let response = await fetch(BACKEND_URL + "/thread");
-      response = await response.json();
-      setThreads(response);
-    }
-    fetchThreads();
+    initWS();
+    // async function fetchThreads() {
+    //   let response = await fetch(BACKEND_URL + "/thread");
+    //   response = await response.json();
+    //   setThreads(response);
+    // }
+    // fetchThreads();
   }, []);
+
+  function initWS() {
+    let socket = new WebSocket("ws://localhost:5000/ws");
+    socket.onopen = function () {
+      console.log("Socket is open");
+    };
+    socket.onmessage = function (e) {
+      setThreads(JSON.parse(e.data));
+      // console.log(JSON.parse(e.data));
+    };
+    return socket;
+  }
 
   return (
     <VStack>
