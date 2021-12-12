@@ -16,7 +16,7 @@ export default function Chatbox() {
   }, []);
 
   function initWS() {
-    let wsURL = BACKEND_URL.replace(/^https?/, "ws") + "/ws";
+    let wsURL = BACKEND_URL.replace(/^https?/, "wss") + "/ws";
     let socket = new WebSocket(wsURL);
     socket.onopen = function () {
       console.log("Socket is open");
