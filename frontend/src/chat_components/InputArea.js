@@ -1,7 +1,13 @@
 import { Button, FormControl, Input, Textarea, VStack } from "@chakra-ui/react";
-import { BACKEND_URL } from "./Chatbox";
+import { useState } from "react";
+import socket from "../Socket";
 
 export default function InputArea() {
+  const [inputValue, setInputValue] = useState("");
+  const handleUserInput = (e) => {
+    setInputValue(e.target.value);
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     const { user, post } = e.target.elements;
@@ -11,21 +17,10 @@ export default function InputArea() {
       Content: post.value,
     };
 
-    fetch(BACKEND_URL + "/thread", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    socket.send(JSON.stringify(payload));
+    setInputValue("");
   }
+
   return (
     <VStack>
       <form onSubmit={handleSubmit}>
@@ -37,6 +32,8 @@ export default function InputArea() {
             id="post"
             marginTop="1.5vh"
             placeholder="Write your thoughts here..."
+            value={inputValue}
+            onChange={handleUserInput}
           />
         </FormControl>
 
