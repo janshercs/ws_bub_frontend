@@ -9,7 +9,6 @@ export const WEBSOCKET_PROTOCOL =
 const messageHandlers = new Set();
 
 export const addMessageHandler = (handler) => {
-  console.log(handler);
   messageHandlers.add(handler);
 };
 
@@ -17,7 +16,7 @@ export const removeMessageHandler = (handler) => {
   messageHandlers.delete(handler);
 };
 
-let wsURL = BACKEND_URL.replace(/^https?/, WEBSOCKET_PROTOCOL) + "/ws";
+let wsURL = BACKEND_URL.replace(/^https?/, WEBSOCKET_PROTOCOL) + "/chat";
 
 const socket = new WebSocket(wsURL);
 socket.onopen = function () {
