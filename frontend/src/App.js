@@ -1,7 +1,7 @@
 import { Center } from "@chakra-ui/layout";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chatbox from "./chat_components/Chatbox";
-import Editor from "./components/editor";
+import CodeEditor from "./components/codeEditor";
 import "./App.css";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Chatbox />} />
-            <Route exact path="/pair" element={<Editor textValue={""} />} />
+            <Route exact path="/pair" element={<CodeEditor textValue={""} />} />
           </Routes>
         </Router>
       </Center>
