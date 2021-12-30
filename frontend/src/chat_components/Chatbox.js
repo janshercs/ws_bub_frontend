@@ -6,9 +6,6 @@ import { addMessageHandler, removeMessageHandler } from "../Socket";
 
 export default function Chatbox() {
   const [threads, setThreads] = useState([]);
-  const sendMessage = function (message) {
-    console.log(message);
-  };
 
   useEffect(() => {
     const handler = (e) => {
@@ -22,7 +19,7 @@ export default function Chatbox() {
   return (
     <VStack>
       <Bubbles threads={threads}></Bubbles>
-      <InputArea sendMessage={sendMessage} />
+      <InputArea />
     </VStack>
   );
 }
